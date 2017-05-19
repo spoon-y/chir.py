@@ -32,7 +32,7 @@ news_keywords = {
     'basketball' : ('basketball','finals','nba','76ers','blazers','bucks','bulls','cavaliers','celtics','clippers','grizzlies','hawks','heat','hornets','jazz','kings','knicks','lakers','magic','mavericks','nets','nuggets','pacers','pistons','raptors','rockets','spurs','suns','thunder','timberwolves','warriors','wizards'),
     'boxing'     : ('boxing','fightnight'),
     'football'   : ('football','madden','nfl','superbowl','touchdown','49ers','bears','bengals','bills','broncos','browns','bucaneers','cardinals','chargers','cheifs','colts','cowboys','dolphins','eagles','falcons','giants','jaguars','jets','lions','packers','panthers','patriots','raiders','rams','ravens','redskins','saints','seahawks','steelers','texans','titans','vikings'),
-    'golf'       : ('fedexcup','owgr','pga','pgachampionship','pgatour'),
+    'golf'       : ('fedexcup','owgr','pga','pgachampionship','pgatour','golf'),
     'hockey'     : ('hockey','nhl','worldcup','avalanche','blackhawks','bluejackets','blues','bruins','canadiens','canucks','capitals','coyotes','devils','ducks','flames','flyers','hurricanes','islanders','jets','kings','lightning','mapleleafs','oilers','panthers','penguins','predators','rangers','redwings','sabres','senators','sharks','stars','wild'),
     'mma'        : ('bellator','martialarts','mixedmartialarts','mma','ufc','wsof'),
     'nascar'     : ('buschseries','campingworldtruckseries','daytona500','iracing','nascar','sprintcup','sprintseries','winstoncup','winstoncupseries','xfinityseries'),
