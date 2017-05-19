@@ -165,6 +165,9 @@ class search_loop(threading.Thread):
                 finally:
                     debug.alert('Search loop sleeping for 15 minutes.')
                     time.sleep(60*15)
+            else:
+                debug.alert('Search loop sleeping for 15 minutes.')
+                time.sleep(60*15)
 
 def unfollow_loop():
     try:
