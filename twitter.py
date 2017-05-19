@@ -14,8 +14,10 @@ import config
 import debug
 import functions
 
+global boost_tags
 api = None
 me  = None
+boost_tags = list(config.boost_keywords)
 
 def login():
 	global api, me
@@ -39,17 +41,27 @@ class boost_loop(threading.Thread):
 	def __init__(self):
 		threading.Thread.__init__(self)
 	def run(self):
+		random.shuffle(boost_tags)
 		while True:
 			debug.action('Boost loop starting up.')
 			try:
-				#if 'boost_tweet' in locals(): api.destroy_status(boost_tweet.id)
-				#boost_tweet = api.update_status('Support our Twitter! #' + ' #'.join(config.boost_keywords))
-				debug.alert('Re-posted boost tweet... jk')
+				tweets = list()
+				for item in tweepy.Cursor(api.user_timeline, exclude_replies=True).items(50):
+					tweets.append(item.text)
+				boost_tweet = 'Support our Twitter! #' + ' #'.join(boost_tags)
+				if boost_tweet not in tweets:
+					api.update_status(boost_tweet)
+					debug.alert('Re-posted boost tweet.')
+			
 			except tweepy.TweepError as ex:
 				debug.error('Error occured in the boost loop', ex)
+			except Exception as ex:
+				debug.error('Unknown error in the boost loop', ex)
+				
 			finally:
-				random.shuffle(list(config.boost_keywords))
-				time.sleep(60*5)
+				random.shuffle(boost_tags)
+				debug.alert('Boost loop sleeping 20 minutes.')
+				time.sleep(60*20)
 
 class favorite_loop(threading.Thread):
 	def __init__(self):
@@ -85,7 +97,7 @@ class follow_loop(threading.Thread):
 					if not follower in friends:
 						debug.action('Found follower not being followed.')
 						api.create_friendship(follower)
-						#api.send_direct_message(screen_name=follower, text='Thanks for following our Twitter. Be sure to share us with your friends & keep up with the latest sports news!')
+						api.send_direct_message(user_id=follower, text='Thanks for following our Twitter. Be sure to share us with your friends & keep up with the latest sports news!')
 						time.sleep(60)
 				#if me.friends_count / me.followers_count > 10:
 					#debug.action('Following to follower ratio is off! Starting the unfollow loop...')
@@ -96,14 +108,14 @@ class follow_loop(threading.Thread):
 				debug.error('Unknown error in follow loop!!', ex)	
 
 			finally:
-				debug.alert('Follow loop sleeping for 15 minutes.')
-				time.sleep(60*15)
+				debug.alert('Follow loop sleeping for 5 minutes.')
+				time.sleep(60*5)
 
 def main_loop():
 	stats()
 	debug.action('Let\'s roll.')
-	#boost_loop().start()
-	#time.sleep(15)
+	boost_loop().start()
+	time.sleep(5)
 	follow_loop().start()
 	time.sleep(5)
 	favorite_loop().start()
