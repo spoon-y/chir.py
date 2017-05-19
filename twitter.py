@@ -122,11 +122,11 @@ class news_loop(threading.Thread):
                 tweets = list()
                 for item in tweepy.Cursor(api.user_timeline, exclude_replies=True).items(50):
                     tweets.append(item.text[:20])
-                    dupe = news[:20]
-                    if dupe not in tweets:
-                        api.update_status(news)
-                        debug.alert('A tweet has been posted.')
-                        time.sleep(60*15)
+                dupe = news[:20]
+                if dupe not in tweets:
+                    api.update_status(news)
+                    debug.alert('A tweet has been posted.')
+                    time.sleep(60*10)
             except tweepy.TweepError as ex:
                 debug.error('Error occured in the news loop.', ex)
             finally:
