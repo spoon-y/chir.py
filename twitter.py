@@ -64,7 +64,7 @@ class favorite_loop(threading.Thread):
 							if random.choice([True, False, False, False, False]):
 								api.create_favorite(tweet.id)
 								debug.alert('Favorited a friends tweet!')
-								time.sleep(60*20)
+								time.sleep(60*5)
 			except tweepy.TweepError as ex:
 				debug.error('Error occured in the favorite loop!', ex)
 			finally:
