@@ -42,8 +42,8 @@ def get_news(): # This is very sloppy and needs some work.
 		for word in sport_keywords:
 			if word in description.lower():
 				description = re.sub(word, '#' + word, description, flags=re.IGNORECASE)
-		if len(description) > 115:
-			description = description[:115] + '...'
+		if len(description) > 113:
+			description = description[:113] + '...'
 		try:
 			link = coinurl(item.link)
 		except Exception as ex:

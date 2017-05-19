@@ -79,7 +79,7 @@ class follow_loop(threading.Thread):
 			me = api.me()
 			debug.action('Follow loop starting up.')
 			try:
-				followers = api.followers_ids(me.screen_name)
+				followers = me.followers_ids(me.screen_name)
 				friends   = api.friends_ids(me.screen_name)
 				for follower in followers:
 					if not follower in friends:
@@ -87,10 +87,9 @@ class follow_loop(threading.Thread):
 						api.create_friendship(follower)
 						#api.send_direct_message(screen_name=follower, text='Thanks for following our Twitter. Be sure to share us with your friends & keep up with the latest sports news!')
 						time.sleep(60)
-				if me.friends_count / me.followers_count > 10:
-					debug.action('Following to follower ratio is off! Starting the unfollow loop...')
-					unfollow_loop()
-
+				#if me.friends_count / me.followers_count > 10:
+					#debug.action('Following to follower ratio is off! Starting the unfollow loop...')
+					#unfollow_loop()
 			except tweepy.TweepError as ex:
 				debug.error('Error occured in the follow loop!', ex)
 			except Exception as ex:
@@ -184,7 +183,7 @@ def unfollow_loop():
 				if friend not in followers:
 					api.destroy_friendship(friend)
 					me = api.me()
-					debug.alert('Unfollowed an unsupporting friend!Friends/Followers: ' + str(me.friends_count) + '/' + str(me.followers_count))
+					debug.alert('Unfollowed an unsupporting friend! Friends/Followers: ' + str(me.friends_count) + '/' + str(me.followers_count))
 					time.sleep(30)
 				else:
 					time.sleep(1)
