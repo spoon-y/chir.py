@@ -128,7 +128,7 @@ class news_loop(threading.Thread):
                         debug.alert('A tweet has been posted.')
                         time.sleep(60*15)
             except tweepy.TweepError as ex:
-                debug.error('Error occured in the news loop: ' + item, ex)
+                debug.error('Error occured in the news loop.', ex)
             finally:
                 debug.alert('News loop sleeping for a minute.')
                 time.sleep(60)
