@@ -118,22 +118,20 @@ class news_loop(threading.Thread):
             debug.action('News loop starting up.')
             try:
                 news   = functions.get_news()
-                debug.alert('Got the news.')
+                debug.alert('Got the news!')
                 tweets = list()
                 for item in tweepy.Cursor(api.user_timeline, exclude_replies=True).items(50):
                     tweets.append(item.text[:20])
-                    #time.sleep(2)
-                for item in news:
-                    dupe = item[:20]
+                    dupe = news[:20]
                     if dupe not in tweets:
-                        api.update_status(item)
+                        api.update_status(news)
                         debug.alert('A tweet has been posted.')
                         time.sleep(60*15)
             except tweepy.TweepError as ex:
                 debug.error('Error occured in the news loop: ' + item, ex)
             finally:
-                debug.alert('News loop sleeping for 15 minutes.')
-                time.sleep(60*15)
+                debug.alert('News loop sleeping for a minute.')
+                time.sleep(60)
 
 class search_loop(threading.Thread):
     def __init__(self):
