@@ -20,11 +20,12 @@ def coinurl(url):
     else       : return source.read().decode()
 
 def get_news(): # This is very sloppy and needs some work.
-    sport          = random.choice(list(config.news_feeds.keys()))
-    sport_news     = feedparser.parse(config.news_feeds[sport])
-    sport_keywords = config.news_keywords[sport]
-    item = random.choice(sport_news.entries)
     try:
+        description = ''
+        sport          = random.choice(list(config.news_feeds.keys()))
+        sport_news     = feedparser.parse(config.news_feeds[sport])
+        sport_keywords = config.news_keywords[sport]
+        item = random.choice(sport_news.entries)
         description = strip_html(item.summary)
         description = sport + " " + description
         if ') -- ' in description:
@@ -49,9 +50,10 @@ def get_news(): # This is very sloppy and needs some work.
             debug.error('Error occured creating PPC link!', ex)
         else:
             description = description + ' ' + link
+        return description
     except Exception as ex:
             debug.error('Error occured getting news!', ex)    
-    return description
+
 
 def strip_html(source):
     return re.compile(r'<.*?>').sub('', source)

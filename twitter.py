@@ -79,8 +79,8 @@ class follow_loop(threading.Thread):
             me = api.me()
             debug.action('Follow loop starting up.')
             try:
-                followers = api.followers_ids(me.screen_name)
-                friends   = api.friends_ids(me.screen_name)
+                followers = me.followers_ids(me.screen_name)
+                friends   = me.friends_ids(me.screen_name)
                 for follower in followers:
                     if not follower in friends:
                         debug.action('Found follower not being followed.')
